@@ -34,7 +34,7 @@
 
 	    <mkdir dir="${ivy.jar.dir}"/>
 	    <!-- download Ivy from web site so that it can be used even without any special installation -->
-	    <get src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar" 
+	    <get src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
 	         dest="${ivy.jar.file}" usetimestamp="true"/>
 	</target>
 
@@ -50,7 +50,7 @@
 	    <taskdef resource="org/apache/ivy/ant/antlib.xml"
 	             uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path" />
 	</target>
-	
+
 	<!-- Compilation macro
 		 This Macro compiles the sources is one ${src}-... folder.
 	 The sources are compiled into the ${build} folder.
@@ -118,7 +118,7 @@
 		<delete dir="${build}" />
 		<delete dir="${dist}" />
 	</target>
-	
+
 	<target name="resolve" depends="init-ivy">
 		<ivy:retrieve type="jar,bundle" sync="true" />
 		<ivy:retrieve pattern="lib/[artifact]-[revision].[ext]" conf="lib" type="jar,bundle" sync="false" />
@@ -133,20 +133,20 @@
 			</fileset>
 		</javadoc>
 	</target>
-	
+
 	<target name="compile">
 		<echo message="[build] Compiling the sources" />
 		<mkdir dir="${build}" />
 		<mkdir dir="${dist}" />
 		<compile />
 	</target>
-		
+
 	<target name="makejar">
 		<echo message="[build] Creating jar" />
 		<tstamp />
 		<makejar />
 	</target>
-		
+
 	<target name="archive">
 		<echo message="[build] Packaging the project" />
 		<sequential>
@@ -190,20 +190,20 @@
 			<copy file="ProM.ini" tofile="${release}/ProM.ini" overwrite="true" />
 		</sequential>
 	</target>
-	
+
 	<!-- Target to use to build the project on Hudson -->
 	<target name="buildHudson" depends="clean,resolve,javadoc,compile,makejar,archive" />
-	
+
 	<!-- Target to use to prepare for a downstream build -->
 	<!-- The upstream changes will be copied in following this target -->
 	<target name="prepareDownstream" depends="clean,resolve" />
-	
+
 	<!-- Target to use to do the downstram build -->
 	<!-- The upstream changes will be copied in preceding this target -->
 	<target name="buildDownstream" depends="compile" />
-	
+
 	<!-- Targets for sake of backwards compatibility -->
-	
+
 	<!-- clean all binaries and distributions -->
 	<target name="Clean build and dist folders" description="clean up" id="1" depends="clean" />
 
